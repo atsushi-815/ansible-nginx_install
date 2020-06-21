@@ -1,0 +1,77 @@
+- name: nginx install
+  yum:
+    name: nginx
+    state: latest
+
+- name: nginx start
+  service: 
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: nginx modify file
+  replace: 
+    dest: /etc/nginx/nginx.conf
+    regexp: 'keepalive_timeout.*'
+    replace: 'keepalive_timeout   100; '
+
+
+#  - name: nginxインストール
+#    shell: "amazon-linux-extras install nginx1.12 -y"
+#    become: yes
+#
+#  - name: nginxインストールチェック
+#    shell: "rpm -qa | grep nginx"
+#    args:
+#      when: false
+#    register: nginx_check
+#    ignore_errors: true
+
+#  - name: nginc_result
+#    debug:
+#      msg: "{{ nginx_check.stdout }}です"
+
+
+#    - name: when-7
+#      shell: echo "linux7系やで。"
+#
+#  when: ansible_distribution_major_version == "7"
+#
+#  - name: when-6
+#    shell: echo "linux6系です。"
+#    when: ansible_distribution_major_version == "6"
+#    - name: yumモジュールチェック
+#      shell: rpm -qa | grep yum | wc -l
+#      args:
+#        warn: false
+#      register: yum_check
+#      ignore_errors: true
+#
+#    - name: コマンド実行結果チェック1
+#      debug:
+#        msg: "yumモジュールが足りません。yumモジュールの数は{{ yum_check.stdout }}です。"
+#      when: yum_check.stdout == '1'
+#
+#    - name: コマンド実行結果チェック3
+#      debug:
+#        msg: "OK。yumモジュールの数は{{ yum_check.stdout }}です"
+#      when: yum_check.stdout == '3'
+
+
+#    - name: 実行結果
+#      debug:
+#        msg: "{{ yum_check }}"
+
+
+
+
+#  vars:
+#    sample_vars: software_desing_2018
+#    - shell: uptime
+#      register: result
+#
+#    - debug:
+#        msg: "{{ result.stdout }}"
+#
+#    - debug:
+#        msg: "{{ sample_vars }}"
